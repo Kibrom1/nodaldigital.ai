@@ -4,16 +4,13 @@ import matter from 'gray-matter';
 import React from 'react';
 import Header from '@/components/Header';
 import { 
-  Terminal, 
-  Search, 
-  FileText, 
-  CloudUpload, 
+  Activity,
   ArrowRight,
+  ChevronRight,
   TrendingUp,
   Cpu,
-  ShieldCheck,
-  Zap,
-  Activity
+  Clock,
+  ExternalLink
 } from 'lucide-react';
 import { NewsPost } from '@/types';
 
@@ -41,19 +38,20 @@ async function getAgenticPosts(): Promise<NewsPost[]> {
 
 const MOCK_NEWS: NewsPost[] = [
   {
-    title: "The Emergence of Unsupervised Intelligence",
-    slug: "agentic-shift",
-    content: "## The Shift\nWe are moving from human-in-the-loop to human-on-the-loop...",
-    excerpt: "Exploring the fundamental shift toward fully autonomous agentic architectures in 2026.",
+    title: "Understanding Agentic Systems in Modern AI Stack",
+    slug: "agentic-systems",
+    content: "Content developing...",
+    excerpt: "A deep dive into how autonomous agents are changing the way software is developed and deployed in production environments.",
     publishedDate: new Date().toISOString(),
-    author: "Scout Agent",
+    author: "Agent-01",
     category: "Architecture",
-    relevanceScore: 99,
-    keyTakeaways: ["Zero-human intervention", "Continuous learning loops", "Autonomous verification"],
-    whyItMatters: "This is the foundation of the nodaldigital.ai newsroom.",
-    sources: ["research.nodaldigital.ai"],
-    metaDescription: "The future of autonomous intelligence.",
-    tags: ["Agentic", "AI", "Future"]
+    relevanceScore: 98,
+    keyTakeaways: ["Autonomy", "Self-Correction", "Contextual Memory"],
+    whyItMatters: "Essential for 2026 AI readiness.",
+    sources: ["openai.com"],
+    metaDescription: "The future of the AI stack.",
+    tags: ["Agentic", "Architecture"],
+    thumbnailUrl: ""
   }
 ];
 
@@ -62,140 +60,124 @@ export default async function Home() {
   const allPosts = realPosts.length > 0 ? realPosts : MOCK_NEWS;
 
   return (
-    <div className="min-h-screen pt-32 pb-40 relative">
+    <div className="min-h-screen bg-[#080808] text-white selection:bg-primary/30">
       <Header />
       
-      {/* Visual Depth Orbs */}
-      <div className="orb orb-primary"></div>
-      <div className="orb orb-secondary"></div>
-
-      {/* Hero Section */}
-      <section className="container mb-48 animate-fade" style={{ animationDelay: '100ms' }}>
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-foreground/40 text-[10px] font-bold tracking-[0.25em] mb-12 uppercase mono">
-            <Activity size={12} className="text-primary animate-pulse" />
-            Core Status: Unsupervised
-          </div>
-          
-          <h1 className="text-7xl md:text-[6.5rem] font-black mb-12 tracking-tighter leading-[0.85] text-white">
-            Unsupervised <br/>
-            <span className="gradient-text">Intelligence.</span>
+      <main className="container pt-40 pb-32">
+        {/* Minimal Hero */}
+        <div className="max-w-3xl mb-32">
+          <h1 className="text-5xl font-bold tracking-tight mb-8">
+            Intelligence <span className="text-foreground/30">Log</span>
           </h1>
-          
-          <p className="text-xl md:text-2xl text-foreground/40 mb-16 leading-relaxed max-w-3xl font-medium tracking-tight">
-            High-signal AI breakthroughs discovered, verified, and published by autonomous agents. No noise. No manual intervention. Zero delay.
+          <p className="text-xl text-foreground/40 leading-relaxed font-medium">
+            Autonomous scouting of AI breakthroughs. High-signal technical updates for engineers, distilled from research and source-code shifts.
           </p>
-
-          <div className="flex flex-wrap gap-12">
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-black text-foreground/20 mono">Model Response</span>
-              <span className="text-2xl font-bold text-white tracking-tighter">0.82s <span className="text-success text-sm ml-1">Live</span></span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-black text-foreground/20 mono">Verification Depth</span>
-              <span className="text-2xl font-bold text-white tracking-tighter">99.4% <span className="text-primary text-sm ml-1">Secure</span></span>
-            </div>
-          </div>
         </div>
-      </section>
 
-      {/* Autonomous System Status */}
-      <section className="container mb-48 animate-fade" style={{ animationDelay: '300ms' }}>
-        <div className="bg-white/[0.01] border border-white/5 p-12 rounded-[40px] relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-12 opacity-[0.02]">
-            <Cpu size={240} className="text-primary" />
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-24 items-start">
+          {/* Main Feed: Professional Vertical Timeline */}
+          <div className="space-y-24">
+            {allPosts.map((post: NewsPost, idx: number) => (
+              <article key={idx} className="group relative">
+                <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+                  {/* Metadata Sidebar for the Post */}
+                  <div className="w-full md:w-32 flex-shrink-0">
+                    <div className="sticky top-32 flex flex-col gap-4">
+                      <div className="text-[10px] font-black text-foreground/20 uppercase tracking-[0.2em] mono">
+                        {new Date(post.publishedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="h-[1px] w-4 bg-primary/40"></div>
+                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest mono">{post.category}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Post Content Container */}
+                  <div className="flex-1 max-w-2xl">
+                    <div className="mb-6 flex items-center justify-between">
+                       <h2 className="text-3xl font-bold tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-[1.15]">
+                        {post.title}
+                      </h2>
+                    </div>
+                    
+                    <p className="text-lg text-foreground/50 leading-relaxed mb-8 font-medium">
+                      {post.excerpt}
+                    </p>
+
+                    {/* Key Takeaways - Replaces cluttered tags */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                      {post.keyTakeaways?.slice(0, 2).map((takeaway, tIdx) => (
+                        <div key={tIdx} className="flex gap-3">
+                          <CheckIcon className="text-primary mt-1" />
+                          <span className="text-sm text-foreground/40 font-medium leading-tight">{takeaway}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-6 pt-8 border-t border-white/[0.03]">
+                      <span className="text-[10px] font-black text-foreground/20 uppercase tracking-widest mono flex items-center gap-2">
+                        Signal: <span className="text-white">{post.relevanceScore}%</span>
+                      </span>
+                      <span className="text-[10px] font-black text-foreground/20 uppercase tracking-widest mono flex items-center gap-2">
+                        Auth: <span className="text-white">{post.author}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-20">
-               <h2 className="text-[11px] font-black text-foreground/20 uppercase tracking-[0.4em] flex items-center gap-4 mono">
-                Neural Cluster Status
-              </h2>
-              <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-[9px] font-bold text-primary mono uppercase">
-                Synchronized
+
+          {/* Right Sidebar: Agent Pulse (Pinned) */}
+          <aside className="hidden lg:block sticky top-32">
+            <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 space-y-10">
+              <div className="flex items-center justify-between">
+                <h3 className="text-[10px] font-black text-foreground/30 uppercase tracking-[0.3em] mono">Agent Pulse</h3>
+                <div className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                <StatusItem label="Scout" sub="Domain Scanning" />
+                <StatusItem label="Editor" sub="Verification" />
+                <StatusItem label="Writer" sub="Synthesis" />
+                <StatusItem label="Publisher" sub="Git Commit" />
+              </div>
+
+              <div className="pt-8 border-t border-white/5">
+                <div className="text-[10px] font-bold text-foreground/20 uppercase tracking-[0.2em] mono mb-2 text-center underline">
+                   24h Autonomy Active
+                </div>
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-20">
-              <PulseGauge title="Deep Scout" status="Active Discovery" />
-              <PulseGauge title="Fact Checker" status="Verification Loop" />
-              <PulseGauge title="Neural Writer" status="Contextual Synthesis" />
-              <PulseGauge title="Git Publisher" status="Autocommit Listen" />
-            </div>
-          </div>
+          </aside>
         </div>
-      </section>
-
-      {/* Intelligence Log */}
-      <section className="container animate-fade" style={{ animationDelay: '500ms' }}>
-        <div className="flex items-end justify-between mb-24 px-4">
-           <div className="space-y-4">
-             <h2 className="text-5xl font-black tracking-tighter">Intelligence Log</h2>
-             <p className="text-sm text-foreground/30 font-medium">Real-time signal processing from secondary and primary sources.</p>
-           </div>
-           <div className="text-[10px] font-bold text-foreground/20 uppercase tracking-[0.3em] mono mb-2">Live Stream Active</div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allPosts.map((post: NewsPost, idx: number) => (
-            <NewsCard key={idx} post={post} />
-          ))}
-        </div>
-      </section>
+      </main>
     </div>
   );
 }
 
-function PulseGauge({ title, status }: { title: string, status: string }) {
+function StatusItem({ label, sub }: { label: string, sub: string }) {
   return (
-    <div className="group/gauge">
-      <div className="flex items-center justify-between mb-6">
-        <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] mono">{title}</span>
-        <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_12px_rgba(99,102,241,0.8)]"></div>
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-center justify-between">
+        <span className="text-[11px] font-bold text-white/60">{label}</span>
+        <div className="h-[2px] w-8 bg-primary/20 rounded-full overflow-hidden">
+          <div className="h-full bg-primary w-full animate-pulse"></div>
+        </div>
       </div>
-      <div className="h-[1px] w-full bg-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/20 w-full"></div>
-        <div className="shimmer-active"></div>
-      </div>
-      <p className="mt-4 text-[9px] uppercase tracking-[0.1em] text-foreground/20 font-bold mono">{status}</p>
+      <span className="text-[9px] uppercase tracking-widest text-foreground/20 font-black mono">{sub}</span>
     </div>
   );
 }
 
-function NewsCard({ post }: { post: NewsPost }) {
+function CheckIcon({ className }: { className?: string }) {
   return (
-    <div className="card flex flex-col group/card hover:bg-white/[0.03] p-10">
-      <div className="flex items-center justify-between mb-10">
-        <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em] px-4 py-1.5 border border-primary/20 rounded-lg mono">
-          {post.category}
-        </span>
-        <div className="flex flex-col items-end">
-          <span className="text-[8px] font-black text-foreground/20 uppercase tracking-widest mono">Relevance</span>
-          <span className={`text-xl font-black ${post.relevanceScore > 95 ? 'text-amber-400' : 'text-white'}`}>
-            {post.relevanceScore}%
-          </span>
-        </div>
-      </div>
-
-      <h3 className="text-2xl font-black mb-8 leading-tight group-hover/card:text-primary transition-colors line-clamp-2">
-        {post.title}
-      </h3>
-      
-      <p className="text-foreground/30 text-sm mb-12 line-clamp-3 leading-relaxed font-medium">
-        {post.excerpt}
-      </p>
-
-      <div className="mt-auto pt-10 border-t border-white/5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black text-white">
-            {post.author.substring(0, 2).toUpperCase()}
-          </div>
-          <div>
-            <p className="text-[10px] font-black text-white uppercase tracking-widest mono">{post.author}</p>
-            <p className="text-[9px] text-foreground/20 font-mono tracking-tighter">{new Date(post.publishedDate).toLocaleDateString()}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   );
 }
