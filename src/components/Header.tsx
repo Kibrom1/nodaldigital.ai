@@ -27,30 +27,30 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] h-20 flex items-center bg-[#080808]/80 backdrop-blur-md border-b border-white/[0.03]">
+    <header className="fixed top-0 left-0 right-0 z-[100] h-16 flex items-center bg-[#080808]/90 backdrop-blur-xl border-b border-white/[0.03]">
       <div className="container flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-4 group">
-          <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tighter leading-none mb-1">
-              NODAL<span className="text-primary italic">DIGITAL</span>
+        <div className="flex items-center gap-12">
+          <Link href="/" className="flex items-center gap-4 group">
+            <span className="text-sm font-black tracking-tighter uppercase">
+              NODAL <span className="text-primary italic">DIGITAL</span>
             </span>
-            <span className="text-[10px] font-bold text-foreground/20 uppercase tracking-[0.2em] mono">Intelligence Core</span>
-          </div>
-        </Link>
+          </Link>
 
-        <nav className="hidden md:flex items-center gap-10 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em] mono">
-          <Link href="/" className="text-white hover:text-primary transition-colors">Daily Cycle</Link>
-          <span className="opacity-10 cursor-not-allowed">Archive</span>
-          <span className="opacity-10 cursor-not-allowed">Status</span>
-        </nav>
+          <nav className="hidden md:flex items-center gap-8 text-[10px] font-bold text-foreground/30 uppercase tracking-[0.2em] mono">
+            <Link href="/" className="text-white hover:text-primary transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Intelligence Log</Link>
+            <span className="opacity-10 cursor-not-allowed">Agency</span>
+            <span className="opacity-10 cursor-not-allowed">System Pulse</span>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-6">
           <button 
             onClick={handleRun}
             disabled={isRunning}
-            className={`text-[11px] font-bold uppercase tracking-[0.2em] mono transition-all ${isRunning ? 'text-primary animate-pulse' : 'text-foreground/40 hover:text-white'}`}
+            className={`text-[10px] font-bold uppercase tracking-[0.25em] mono transition-all ${isRunning ? 'text-primary animate-pulse' : 'text-foreground/20 hover:text-white'}`}
           >
-            {isRunning ? '[ System_Sync ]' : '[ Run_Machine ]'}
+            {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
           </button>
         </div>
       </div>
