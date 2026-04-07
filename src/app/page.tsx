@@ -132,20 +132,17 @@ export default function Home() {
 
       {/* Main Feed Section */}
       <section className="container animate-fade" style={{ animationDelay: '0.2s' }}>
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-4">
-            <h2 className="text-3xl font-bold">Latest Intelligence</h2>
-            <div className="bg-white/5 px-4 py-1.5 rounded-full border border-white/10 text-xs font-semibold text-foreground/40 backdrop-blur-md">
-              Updated 24m ago
-            </div>
+        <div className="flex items-center justify-between mb-8 sticky top-20 z-40 bg-background/80 backdrop-blur-md py-4 border-b border-white/5">
+          <div className="flex items-center gap-6 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+            <button className="text-white font-bold border-b-2 border-primary pb-1 whitespace-nowrap">All Intelligence</button>
+            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">LLM Developments</button>
+            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">Code Generation</button>
+            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">Multimodal AI</button>
           </div>
-          <div className="flex gap-2">
-            <button className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-colors">
-              All Categories
-            </button>
-            <button className="px-5 py-2 rounded-xl bg-primary text-sm font-semibold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
-              Filter: Relevance {">"} 80
-            </button>
+          <div className="hidden md:flex gap-4 items-center">
+             <div className="bg-white/5 px-4 py-1.5 rounded-full border border-white/10 text-xs font-semibold text-foreground/40">
+              Live updates enabled
+            </div>
           </div>
         </div>
 
@@ -187,7 +184,7 @@ function NewsCard({ post }: { post: NewsPost }) {
       {/* Relevance Badge */}
       <div className="absolute top-6 right-6 flex flex-col items-end gap-1">
         <div className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Relevance</div>
-        <div className="text-xl font-black text-primary drop-shadow-[0_0_12px_rgba(99,102,241,0.4)]">
+        <div className={`text-xl font-black ${post.relevanceScore > 95 ? 'text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.5)]' : 'text-primary drop-shadow-[0_0_12px_rgba(99,102,241,0.4)]'}`}>
           {post.relevanceScore}%
         </div>
       </div>
@@ -202,7 +199,7 @@ function NewsCard({ post }: { post: NewsPost }) {
         {post.title}
       </h3>
       
-      <p className="text-foreground/50 text-sm mb-8 line-clamp-3 leading-relaxed">
+      <p className="text-foreground/70 text-sm mb-8 line-clamp-3" style={{ lineHeight: 1.75 }}>
         {post.excerpt}
       </p>
 
@@ -216,9 +213,11 @@ function NewsCard({ post }: { post: NewsPost }) {
             <p className="text-[10px] text-foreground/30 font-mono">2026-04-05</p>
           </div>
         </div>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-2 justify-end">
           {post.tags.slice(0, 2).map((tag, i) => (
-            <span key={i} className="text-[10px] bg-white/5 border border-white/5 px-2 py-0.5 rounded-md text-foreground/40 font-medium">#{tag}</span>
+            <span key={i} className="text-[11px] bg-primary/10 border border-primary/20 px-3 py-1 rounded-full text-foreground/70 font-semibold hover:bg-primary/20 transition-colors">
+              {tag}
+            </span>
           ))}
         </div>
       </div>

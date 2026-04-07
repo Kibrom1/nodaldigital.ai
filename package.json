@@ -1,5 +1,5 @@
 {
-  "name": "nodaldignal.ai",
+  "name": "nodaldigital.ai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@octokit/rest": "^22.0.1",
     "@supabase/supabase-js": "^2.101.1",
     "date-fns": "^4.1.0",
     "exa-js": "^2.11.0",
@@ -23,8 +24,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
