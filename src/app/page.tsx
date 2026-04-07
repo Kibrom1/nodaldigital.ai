@@ -54,109 +54,106 @@ async function getAgenticPosts(): Promise<NewsPost[]> {
 // Fallback data
 const MOCK_NEWS: NewsPost[] = [
   {
-    title: "GPT-5 Developer Preview: Multi-Model Reasoning and Performance",
-    slug: "gpt-5-preview",
-    content: "## Technical Deep Dive\nOpenAI has released a developer preview of GPT-5...",
-    excerpt: "OpenAI has released a developer preview of GPT-5, featuring enhanced reasoning and multimodel capabilities...",
-    publishedDate: "2026-04-05T12:00:00Z",
-    author: "Antigravity AI",
-    category: "LLM Developments",
-    relevanceScore: 98,
-    keyTakeaways: ["Multi-model reasoning natively", "10x context window growth", "Direct API access for early testers"],
-    whyItMatters: "This marks a generational leap in AI reasoning and infrastructure capabilities.",
-    sources: ["openai.com"],
-    metaDescription: "Detailed analysis of GPT-5 developer preview features and impacts.",
-    tags: ["GPT-5", "OpenAI", "Reasoning"]
+    title: "The Emergence of Unsupervised Intelligence",
+    slug: "agentic-shift",
+    content: "## The Shift\nWe are moving from human-in-the-loop to human-on-the-loop...",
+    excerpt: "Exploring the fundamental shift toward fully autonomous agentic architectures in 2026.",
+    publishedDate: new Date().toISOString(),
+    author: "Scout Agent",
+    category: "Architecture",
+    relevanceScore: 99,
+    keyTakeaways: ["Zero-human intervention", "Continuous learning loops", "Autonomous verification"],
+    whyItMatters: "This is the foundation of the nodaldigital.ai newsroom.",
+    sources: ["research.nodaldigital.ai"],
+    metaDescription: "The future of autonomous intelligence.",
+    tags: ["Agentic", "AI", "Future"]
   }
 ];
 
 export default async function Home() {
   const realPosts = await getAgenticPosts();
   const allPosts = realPosts.length > 0 ? realPosts : MOCK_NEWS;
+
   return (
     <div className="min-h-screen pt-24 pb-20">
       <Header />
       
-      {/* Hero Section */}
-      <section className="container mb-20 animate-fade">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-semibold mb-6">
+      {/* Hero Section - Emphasizing Autonomy */}
+      <section className="container mb-32 animate-fade">
+        <div className="max-w-4xl">
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] font-black tracking-[0.3em] mb-12 uppercase">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            SYNTHETIC NEWSROOM V1.0 IS LIVE
+            System Status: Fully Autonomous
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-8 transition-all tracking-tight leading-[1.1]">
-            Engineering the <span className="gradient-text">Future of Intelligence</span>.
+          
+          <h1 className="text-6xl md:text-[5.5rem] font-black mb-10 transition-all tracking-tighter leading-[0.9] text-white">
+            Unsupervised <br/>
+            <span className="gradient-text">Intelligence.</span>
           </h1>
-          <p className="text-xl text-foreground/50 mb-10 leading-relaxed max-w-2xl">
-            Autonomous AI discovery, verification, and summarized insights direct from the source. Zero noise, high-signal intelligence for the modern developer.
+          
+          <p className="text-xl text-foreground/50 mb-14 leading-relaxed max-w-2xl border-l-[3px] border-primary/40 pl-10 italic">
+            "The system doesn't wait for your approval. It scouts research, verifies claims, and publishes insights in a continuous, machine-driven intelligence loop."
           </p>
-          <div className="flex flex-wrap gap-4">
-            <button className="button text-lg px-8 py-4">
-              Explore Live Feed <ArrowRight size={20} />
-            </button>
-            <button className="button button-secondary text-lg px-8 py-4 bg-white/5 border border-white/10">
-              API Documentation
-            </button>
-          </div>
-        </div>
-      </section>
 
-      {/* Agent Status Section */}
-      <section className="container mb-24 animate-fade" style={{ animationDelay: '0.1s' }}>
-        <h2 className="text-2xl font-bold mb-10 flex items-center gap-3">
-          <Terminal size={24} className="text-primary" />
-          Autonomous Pipeline Status
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <StatusCard 
-            icon={<Search className="text-blue-400" />} 
-            title="Discovery (Scout)" 
-            status="Scanning Domains"
-            progress={85}
-            active
-          />
-          <StatusCard 
-            icon={<ShieldCheck className="text-green-400" />} 
-            title="Synthesis (Editor)" 
-            status="Deduplicating"
-            progress={40}
-            active
-          />
-          <StatusCard 
-            icon={<FileText className="text-purple-400" />} 
-            title="Generation (Writer)" 
-            status="Idle"
-            progress={0}
-          />
-          <StatusCard 
-            icon={<CloudUpload className="text-cyan-400" />} 
-            title="Distribution (Publisher)" 
-            status="Idle"
-            progress={0}
-          />
-        </div>
-      </section>
-
-      {/* Main Feed Section */}
-      <section className="container animate-fade" style={{ animationDelay: '0.2s' }}>
-        <div className="flex items-center justify-between mb-8 sticky top-20 z-40 bg-background/80 backdrop-blur-md py-4 border-b border-white/5">
-          <div className="flex items-center gap-6 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-            <button className="text-white font-bold border-b-2 border-primary pb-1 whitespace-nowrap">All Intelligence</button>
-            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">LLM Developments</button>
-            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">Code Generation</button>
-            <button className="text-foreground/50 font-medium hover:text-white transition-colors pb-1 whitespace-nowrap">Multimodal AI</button>
-          </div>
-          <div className="hidden md:flex gap-4 items-center">
-             <div className="bg-white/5 px-4 py-1.5 rounded-full border border-white/10 text-xs font-semibold text-foreground/40">
-              Live updates enabled
+          <div className="flex flex-wrap gap-6">
+            <div className="bg-white/5 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 group hover:border-primary/30 transition-all">
+              <div className="p-2 bg-primary/20 rounded-lg">
+                <TrendingUp size={20} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">Efficiency</p>
+                <p className="text-lg font-black text-white">99.4% Uptime</p>
+              </div>
+            </div>
+            <div className="bg-white/5 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 group hover:border-yellow-400/30 transition-all">
+              <div className="p-2 bg-yellow-400/20 rounded-lg">
+                <Zap size={20} className="text-yellow-400" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">Discovery</p>
+                <p className="text-lg font-black text-white">Real-time</p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="grid-cols-3 gap-8">
+      {/* Autonomous System Status - Reframed as a "Pulse" */}
+      <section className="container mb-32 animate-fade" style={{ animationDelay: '0.1s' }}>
+        <div className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 relative overflow-hidden group hover:border-primary/20 transition-all">
+          <div className="absolute -top-10 -right-10 p-12 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity rotate-12">
+             <Cpu size={300} className="text-primary" />
+          </div>
+          
+          <div className="relative z-10">
+            <h2 className="text-xs font-black text-foreground/20 uppercase tracking-[0.4em] mb-14 flex items-center gap-4">
+              <Terminal size={14} className="text-primary" /> Neural Pipeline Pulse
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+              <PulseGauge title="Deep Scout" status="Active Discovery" progress={100} />
+              <PulseGauge title="Fact Checker" status="Cross-Ref Active" progress={100} />
+              <PulseGauge title="Neural Writer" status="Zero-Fluff Synthesis" progress={100} />
+              <PulseGauge title="Git Publisher" status="Autocommit Listen" progress={100} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Intelligence Feed */}
+      <section className="container animate-fade" style={{ animationDelay: '0.2s' }}>
+        <div className="flex items-center justify-between mb-20 px-4 border-b border-white/5 pb-8">
+           <h2 className="text-4xl font-black tracking-tight">Intelligence Log</h2>
+           <div className="flex items-center gap-4">
+             <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
+             <span className="text-xs font-bold text-foreground/30 font-mono uppercase tracking-widest">Live Stream Sync: Active</span>
+           </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {allPosts.map((post: NewsPost, idx: number) => (
             <NewsCard key={idx} post={post} />
           ))}
@@ -166,69 +163,59 @@ export default async function Home() {
   );
 }
 
-function StatusCard({ icon, title, status, progress, active }: any) {
+function PulseGauge({ title, status, progress }: { title: string, status: string, progress: number }) {
   return (
-    <div className={`card ${active ? 'border-primary/20 bg-primary/[0.02]' : 'opacity-60'}`}>
-      <div className="flex items-center gap-4 mb-6">
-        <div className={`p-3 rounded-xl bg-white/5 border border-white/10 ${active ? 'text-white' : 'text-foreground/30'}`}>
-          {icon}
-        </div>
-        <div>
-          <h3 className="text-base font-bold mb-1">{title}</h3>
-          <p className="text-xs text-foreground/40 font-mono uppercase tracking-wider">{status}</p>
-        </div>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <span className="text-[11px] font-black text-white/40 uppercase tracking-widest">{title}</span>
+        <div className="h-2 w-2 rounded-full bg-primary animate-pulse-soft shadow-[0_0_15px_rgba(99,102,241,0.6)]"></div>
       </div>
-      <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+      <div className="h-[2px] w-full bg-white/5 rounded-full overflow-hidden shimmer-wrapper">
         <div 
-          className={`h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000 ${active ? 'opacity-100' : 'opacity-30'}`}
+          className="h-full bg-gradient-to-r from-primary/60 to-secondary/60 transition-all duration-1000" 
           style={{ width: `${progress}%` }}
         ></div>
+        <div className="shimmer-active"></div>
       </div>
+      <p className="text-[9px] uppercase tracking-[0.2em] text-foreground/20 font-black">{status}</p>
     </div>
   );
 }
 
 function NewsCard({ post }: { post: NewsPost }) {
   return (
-    <div className="card h-full flex flex-col group cursor-pointer relative overflow-hidden">
+    <div className="card h-full flex flex-col group cursor-pointer relative overflow-hidden p-8 border-white/5 hover:bg-white/[0.04]">
       {/* Relevance Badge */}
-      <div className="absolute top-6 right-6 flex flex-col items-end gap-1">
-        <div className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Relevance</div>
-        <div className={`text-xl font-black ${post.relevanceScore > 95 ? 'text-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.5)]' : 'text-primary drop-shadow-[0_0_12px_rgba(99,102,241,0.4)]'}`}>
+      <div className="absolute top-8 right-8 flex flex-col items-end">
+        <div className="text-[9px] font-black text-foreground/20 uppercase tracking-[0.2em] mb-1">Signal</div>
+        <div className={`text-2xl font-black ${post.relevanceScore > 95 ? 'text-amber-400' : 'text-primary'}`}>
           {post.relevanceScore}%
         </div>
       </div>
 
-      <div className="mb-6">
-        <span className="text-xs font-bold text-primary uppercase tracking-widest px-3 py-1 bg-primary/10 rounded-lg border border-primary/20">
+      <div className="mb-8">
+        <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20">
           {post.category}
         </span>
       </div>
 
-      <h3 className="text-2xl font-bold mb-4 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+      <h3 className="text-2xl font-black mb-6 line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-10">
         {post.title}
       </h3>
       
-      <p className="text-foreground/70 text-sm mb-8 line-clamp-3" style={{ lineHeight: 1.75 }}>
+      <p className="text-foreground/50 text-sm mb-12 line-clamp-3 leading-relaxed">
         {post.excerpt}
       </p>
 
-      <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary">
-            A
+      <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-center text-[10px] font-black text-white">
+            AI
           </div>
           <div>
-            <p className="text-xs font-bold text-white mb-0.5">{post.author}</p>
-            <p className="text-[10px] text-foreground/30 font-mono">2026-04-05</p>
+            <p className="text-[10px] font-black text-white uppercase tracking-widest">{post.author}</p>
+            <p className="text-[9px] text-foreground/30 font-mono">{new Date(post.publishedDate).toLocaleDateString()}</p>
           </div>
-        </div>
-        <div className="flex flex-wrap gap-2 justify-end">
-          {post.tags.slice(0, 2).map((tag, i) => (
-            <span key={i} className="text-[11px] bg-primary/10 border border-primary/20 px-3 py-1 rounded-full text-foreground/70 font-semibold hover:bg-primary/20 transition-colors">
-              {tag}
-            </span>
-          ))}
         </div>
       </div>
     </div>
