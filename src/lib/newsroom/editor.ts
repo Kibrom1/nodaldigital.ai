@@ -19,7 +19,7 @@ export class Editor {
     if (!this.genAI) return signals;
 
     try {
-      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
       const prompt = `Analyze the following AI development signals and rank them (0-100) based on their impact and relevance to Software Engineers.
 Signals:
 ${JSON.stringify(signals.map(s => ({ id: s.id, title: s.title, summary: s.summary })), null, 2)}
@@ -50,7 +50,7 @@ Return a JSON array of signals with their scores in this format: [{"id": "...", 
     if (!this.genAI) return { keyTakeaways: [], whyItMatters: '', excerpt: '' };
 
     try {
-      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
       const prompt = `Distill the following AI news signal for a Software Engineer audience.
 Title: ${signal.title}
 Data: ${signal.summary}
@@ -78,7 +78,7 @@ Return a JSON object: {"keyTakeaways": ["...", "...", "..."], "whyItMatters": ".
     if (!this.genAI) return { verified: true, confidence: 100, notes: 'Verification skipped (No GenAI).' };
 
     try {
-      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
       const prompt = `Cross-reference and verify the following AI news claim.
 Claim: ${signal.title} - ${signal.summary}
 Sources provided: ${sources.join(', ')}

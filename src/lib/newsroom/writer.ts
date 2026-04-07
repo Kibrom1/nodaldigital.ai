@@ -20,7 +20,7 @@ export class Writer {
     if (!this.genAI) return this.getMockPost(signal);
 
     try {
-      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
       const prompt = `Write a high-signal AI news post for software engineers based on:
 Title: ${signal.title}
 Key Takeaways: ${summary.keyTakeaways.join(', ')}
