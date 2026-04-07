@@ -1,23 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #050505;
+  --background: #080808;
   --foreground: #f8f8f8;
   --primary: #6366f1;
-  --secondary: #8b5cf6;
-  --accent: #d946ef;
   --card-bg: rgba(255, 255, 255, 0.02);
-  --border: rgba(255, 255, 255, 0.06);
-  --glass: rgba(5, 5, 5, 0.75);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --border: rgba(255, 255, 255, 0.04);
   
   --font-main: 'Inter', sans-serif;
   --font-display: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   
-  --container-width: 1300px;
+  --container-width: 1200px;
 }
 
 * {
@@ -25,7 +19,6 @@
   padding: 0;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -48,10 +41,9 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: inherit;
   text-decoration: none;
-  transition: all 200ms ease;
 }
 
-/* --- Layout Architecture --- */
+/* --- Layout --- */
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
@@ -64,42 +56,41 @@ a {
   }
 }
 
-/* --- Design Tokens: Glass & Depth --- */
-.glass {
-  background: var(--glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--border);
-}
-
-.card {
-  background: transparent;
-  padding: 0;
-  position: relative;
-  overflow: visible;
-  transition: all 400ms ease;
-  border: none;
-}
-
-/* --- Typography System --- */
-.gradient-text {
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.45) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
+/* --- Clean Typography --- */
 .mono {
   font-family: var(--font-mono);
-  letter-spacing: -0.01em;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-/* --- Decorative Elements Removed --- */
-/* (Orbs and extraneous glows removed for a cleaner, high-signal technical look) */
+/* --- Zero Clutter: No Orbs, No Glows --- */
+/* Strictly Solid Background System */
 
-/* --- Scrollbar --- */
-::-webkit-scrollbar { width: 6px; }
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+
+.animate-fade {
+  animation: fadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- Transition Elements --- */
+.separator {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  margin: 80px 0;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--background); }
 ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #333; }

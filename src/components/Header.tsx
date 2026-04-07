@@ -31,16 +31,16 @@ const Header = () => {
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-12">
           <Link href="/" className="flex items-center gap-4 group">
-            <span className="text-sm font-black tracking-tighter uppercase">
+            <span className="text-sm font-black tracking-tighter uppercase whitespace-nowrap">
               NODAL <span className="text-primary italic">DIGITAL</span>
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-[10px] font-bold text-foreground/30 uppercase tracking-[0.2em] mono">
+          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-black text-foreground/20 uppercase tracking-[0.3em] mono">
             <Link href="/" className="text-white hover:text-primary transition-colors">Home</Link>
             <Link href="/" className="hover:text-primary transition-colors">Intelligence Log</Link>
-            <span className="opacity-10 cursor-not-allowed">Agency</span>
-            <span className="opacity-10 cursor-not-allowed">System Pulse</span>
+            <Link href="/" className="hover:text-primary transition-colors opacity-50">Agency</Link>
+            <Link href="/" className="hover:text-primary transition-colors opacity-50">System Pulse</Link>
           </nav>
         </div>
 
@@ -48,7 +48,7 @@ const Header = () => {
           <button 
             onClick={handleRun}
             disabled={isRunning}
-            className={`text-[10px] font-bold uppercase tracking-[0.25em] mono transition-all ${isRunning ? 'text-primary animate-pulse' : 'text-foreground/20 hover:text-white'}`}
+            className={`text-[10px] font-black uppercase tracking-[0.3em] mono transition-all ${isRunning ? 'text-primary animate-pulse' : 'text-foreground/30 hover:text-white'}`}
           >
             {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
           </button>
