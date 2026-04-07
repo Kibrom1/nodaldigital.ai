@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/newsroom/run",
+      "schedule": "0 8 * * *"
+    }
+  ],
+  "functions": {
+    "src/app/api/newsroom/run/route.ts": {
+      "maxDuration": 300
+    },
+    "src/app/api/og/route.ts": {
+      "runtime": "edge"
+    }
+  }
+}
