@@ -7,7 +7,6 @@ import Header from '@/components/Header';
 import { 
   ArrowRight,
   Zap,
-  ShieldCheck,
   Globe,
   Activity,
   Cpu,
@@ -15,52 +14,43 @@ import {
   Loader2
 } from 'lucide-react';
 import { NewsPost } from '@/types';
+// Import bundled posts as baseline
+import bundledPosts from '@/data/posts.json';
 
 async function getAgenticPosts(): Promise<NewsPost[]> {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
-  if (!fs.existsSync(postsDirectory)) return [];
-  try {
-    const filenames = fs.readdirSync(postsDirectory);
-    const posts = filenames
-      .filter(file => file.endsWith('.md'))
-      .map(filename => {
-        const filePath = path.join(postsDirectory, filename);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const { data, content } = matter(fileContent);
-        return { ...data, slug: filename.replace('.md', ''), content } as NewsPost;
-      });
-    return posts.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
-  } catch (err) {
-    return [];
+  let dynamicPosts: NewsPost[] = [];
+  
+  if (fs.existsSync(postsDirectory)) {
+    try {
+      const filenames = fs.readdirSync(postsDirectory);
+      dynamicPosts = filenames
+        .filter(file => file.endsWith('.md'))
+        .map(filename => {
+          const filePath = path.join(postsDirectory, filename);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const { data, content } = matter(fileContent);
+          return { ...data, slug: filename.replace('.md', ''), content } as NewsPost;
+        });
+    } catch (err) {
+      console.error('Error reading dynamic posts:', err);
+    }
   }
+
+  // Merge bundled and dynamic, remove duplicates by slug
+  const allPosts = [...(bundledPosts as NewsPost[]), ...dynamicPosts];
+  const uniquePosts = Array.from(new Map(allPosts.map(p => [p.slug, p])).values());
+
+  return uniquePosts.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
 }
 
-const MOCK_NEWS: NewsPost[] = [
-  {
-    title: "The Emergence of Unsupervised Intelligence",
-    slug: "agentic-shift",
-    content: "## The Shift\nWe are moving from human-in-the-loop to human-on-the-loop...",
-    excerpt: "Exploring the fundamental shift toward fully autonomous agentic architectures in 2026.",
-    publishedDate: new Date().toISOString(),
-    author: "Scout-A1",
-    category: "Architecture",
-    relevanceScore: 99,
-    keyTakeaways: ["Zero-human intervention", "Continuous learning loops", "Autonomous verification"],
-    whyItMatters: "This is the foundation of the nodaldigital.ai newsroom.",
-    sources: ["research.nodaldigital.ai"],
-    metaDescription: "The future of autonomous intelligence.",
-    tags: ["Agentic", "AI", "Future"]
-  }
-];
-
 export default async function Home() {
-  const realPosts = await getAgenticPosts();
-  const allPosts = realPosts.length > 0 ? realPosts : MOCK_NEWS;
+  const allPosts = await getAgenticPosts();
   const featuredPost = allPosts[0];
   const regularPosts = allPosts.slice(1);
 
   return (
-    <div className="min-h-screen pt-32 pb-40">
+    <div className="min-h-screen pt-32 pb-40 bg-[#080808]">
       <Header />
       
       <main className="container animate-fade">
@@ -124,7 +114,6 @@ export default async function Home() {
 
         {/* SECTION 2: INTELLIGENCE FEED */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-24 items-start pt-12">
-          
           <section className="space-y-40">
             <h2 className="text-[10px] font-black text-foreground/20 uppercase tracking-[0.5em] mb-20 mono flex items-center gap-4">
               [ News_Stream_Log ] 
@@ -198,13 +187,6 @@ export default async function Home() {
                   <PulseItem icon={Cpu} label="Editor [E-01]" val="Standby" />
                   <PulseItem icon={ExternalLink} label="Writer [W-01]" val="IDLE" />
                </div>
-            </div>
-
-            <div className="px-6 space-y-6">
-               <h3 className="text-[10px] font-black text-foreground/10 uppercase tracking-[0.5em] mono">System_Documentation</h3>
-               <p className="text-xs leading-relaxed text-foreground/30 font-medium">
-                  Nodal Digital represents a full 180° shift from traditional newsrooms. All technical summaries and verification checks are conducted by AI sub-agents with zero manual intervention.
-               </p>
             </div>
           </aside>
         </div>

@@ -3,32 +3,32 @@ import path from 'path';
 import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
-import { ArrowLeft, Clock, ShieldCheck, Globe, Share2, Printer, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Globe, Share2, Printer, AlertTriangle } from 'lucide-react';
 import Header from '@/components/Header';
 import { NewsPost } from '@/types';
+// Import bundled posts
+import bundledPosts from '@/data/posts.json';
 
-/**
- * PRODUCTION-RESILIENT DATA LOADER
- * Ensures content is found in serverless environments.
- */
 async function getPostData(slug: string): Promise<NewsPost | null> {
-  // Use a more robust path resolution for Vercel
+  // 1. Check bundled data first (High Reliability)
+  const bundledPost = bundledPosts.find(p => p.slug === slug);
+  if (bundledPost) return bundledPost as NewsPost;
+
+  // 2. Check dynamic filesystem (Post-build agent cycles)
   const postsDir = path.join(process.cwd(), 'content', 'posts');
   const filePath = path.join(postsDir, `${slug}.md`);
   
-  if (!fs.existsSync(filePath)) {
-    console.error(`Post not found: ${filePath}`);
-    return null;
+  if (fs.existsSync(filePath)) {
+    try {
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const { data, content } = matter(fileContent);
+      return { ...data, slug, content } as NewsPost;
+    } catch (err) {
+      console.error(`Error reading dynamic post ${slug}:`, err);
+    }
   }
 
-  try {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContent);
-    return { ...data, slug, content } as NewsPost;
-  } catch (err) {
-    console.error(`Error reading post ${slug}:`, err);
-    return null;
-  }
+  return null;
 }
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
@@ -55,7 +55,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-40">
+    <div className="min-h-screen pt-32 pb-40 bg-[#080808]">
       <Header />
       
       <article className="container animate-fade">
@@ -73,7 +73,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <div className="flex items-center gap-4 mb-8">
             <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] mono">{post.category}</span>
             <div className="h-[1px] w-12 bg-white/10"></div>
-            <span className="text-[10px] font-medium text-foreground/20 mono">{new Date(post.publishedDate).toLocaleDateString()}</span>
+            <span className="text-[11px] font-bold text-foreground/20 mono">{new Date(post.publishedDate).toLocaleDateString()}</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-12 text-white">
