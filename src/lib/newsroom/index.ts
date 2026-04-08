@@ -32,7 +32,7 @@ export class Newsroom {
 
     // Phase 2: Editor
     const rankedSignals = await this.editor.filterAndRank(allSignals);
-    const topSignals = rankedSignals.filter(s => (s.score || 0) > 80).slice(0, 5);
+    const topSignals = rankedSignals.filter(s => (s.score || 0) > 20).slice(0, 5);
 
     console.log(`✅ Editor Phase: Screened signals down to ${topSignals.length} high-signal developments.`);
 
