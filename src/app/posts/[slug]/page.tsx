@@ -30,9 +30,12 @@ const CORE_POSTS: NewsPost[] = [
   }
 ];
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  // NEXT.js 15+ PROMISE PARAMS RESOLUTION
+  const { slug } = await props.params;
+  
   // Direct matching from immutable core
-  const post = CORE_POSTS.find(p => p.slug === params.slug);
+  const post = CORE_POSTS.find(p => p.slug === slug);
 
   if (!post) {
     return (
@@ -44,7 +47,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             </div>
             <h1 className="text-4xl font-black text-white mb-4 tracking-tighter uppercase">Signal_Lost.</h1>
             <p className="text-foreground/30 max-w-sm mb-12 font-medium leading-relaxed">
-               This intelligence signal is not currently registered in the core agency nodes.
+               The intelligence node `{slug}` is not currently registered in the core agency nodes.
             </p>
             <Link href="/" className="px-8 py-3 bg-white text-black font-black uppercase tracking-tighter text-xs rounded-lg hover:scale-105 transition-transform mono">
                Back to Core Feed
