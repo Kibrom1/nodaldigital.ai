@@ -39,8 +39,8 @@ const Header = () => {
           <nav className="hidden lg:flex items-center gap-10 text-[10px] font-black text-foreground/20 uppercase tracking-[0.3em] mono">
             <Link href="/" className="text-white hover:text-primary transition-colors">Home</Link>
             <Link href="/" className="hover:text-primary transition-colors">Intelligence Log</Link>
-            <Link href="/" className="hover:text-primary transition-colors opacity-50">Agency</Link>
-            <Link href="/" className="hover:text-primary transition-colors opacity-50">System Pulse</Link>
+            <Link href="/agency" className="hover:text-primary transition-colors">Agency</Link>
+            <Link href="/status" className="hover:text-primary transition-colors">System Pulse</Link>
           </nav>
         </div>
 
