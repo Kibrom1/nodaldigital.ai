@@ -2,10 +2,15 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Cpu, Zap, Search, Bell, Loader2, Play } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Zap } from 'lucide-react';
 
 const Header = () => {
   const [isRunning, setIsRunning] = useState(false);
+  const searchParams = useSearchParams();
+  
+  // Stealth Admin Mode: Only visible if ?admin=true is in the URL
+  const isAdmin = searchParams.get('admin') === 'true';
 
   const handleRun = async () => {
     if (isRunning) return;
@@ -17,8 +22,8 @@ const Header = () => {
           'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CRON_SECRET || 'local-preview'}`
         }
       });
-      if (res.ok) alert('🚀 Agentic Cycle Started! Check your inbox in 2-3 mins.');
-      else alert('❌ Error. System busy.');
+      if (res.ok) alert('🚀 Agentic Cycle Started!');
+      else alert('❌ Access Denied.');
     } catch (err) {
       alert('❌ Fatal: Network error.');
     } finally {
@@ -45,13 +50,15 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <button 
-            onClick={handleRun}
-            disabled={isRunning}
-            className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] mono transition-all border ${isRunning ? 'text-primary border-primary/20 animate-pulse bg-primary/5' : 'text-foreground/30 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/5'}`}
-          >
-            {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
-          </button>
+          {isAdmin && (
+            <button 
+              onClick={handleRun}
+              disabled={isRunning}
+              className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] mono transition-all border ${isRunning ? 'text-primary border-primary/20 animate-pulse bg-primary/5' : 'text-foreground/30 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/5'}`}
+            >
+              {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
+            </button>
+          )}
         </div>
       </div>
     </header>
