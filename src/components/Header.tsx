@@ -48,7 +48,7 @@ const Header = () => {
           <button 
             onClick={handleRun}
             disabled={isRunning}
-            className={`text-[10px] font-black uppercase tracking-[0.3em] mono transition-all ${isRunning ? 'text-primary animate-pulse' : 'text-foreground/30 hover:text-white'}`}
+            className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] mono transition-all border ${isRunning ? 'text-primary border-primary/20 animate-pulse bg-primary/5' : 'text-foreground/30 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/5'}`}
           >
             {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
           </button>
