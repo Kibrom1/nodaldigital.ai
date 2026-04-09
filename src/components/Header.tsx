@@ -1,19 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Zap } from 'lucide-react';
 
 /** 
- * UI INTEGRITY SIG: v1.0.4-STEALTH
+ * UI INTEGRITY SIG: v1.0.5-FINAL-HARDENED
+ * Wrapped in Suspense to resolve Next.js 15 build failure.
  */
 
-const Header = () => {
+const StealthAdminControls = () => {
   const [isRunning, setIsRunning] = useState(false);
   const searchParams = useSearchParams();
-  
-  // Stealth Admin Mode: Strictly hidden from public readers
   const isAdmin = searchParams.get('admin') === 'true';
 
   const handleRun = async () => {
@@ -35,6 +33,20 @@ const Header = () => {
     }
   };
 
+  if (!isAdmin) return null;
+
+  return (
+    <button 
+      onClick={handleRun}
+      disabled={isRunning}
+      className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] mono transition-all border ${isRunning ? 'text-primary border-primary/20 animate-pulse bg-primary/5' : 'text-foreground/30 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/5'}`}
+    >
+      {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
+    </button>
+  );
+}
+
+const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] h-16 flex items-center bg-[#080808]/90 backdrop-blur-xl border-b border-white/[0.03]">
       <div className="container flex items-center justify-between">
@@ -45,7 +57,7 @@ const Header = () => {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-black text-foreground/20 uppercase tracking-[0.3em] mono">
+          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-black text-foreground/30 uppercase tracking-[0.3em] mono">
             <Link href="/" className="text-white hover:text-primary transition-colors">Home</Link>
             <Link href="/" className="hover:text-primary transition-colors">Intelligence Log</Link>
             <Link href="/agency" className="hover:text-primary transition-colors">Agency</Link>
@@ -54,15 +66,9 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          {isAdmin && (
-            <button 
-              onClick={handleRun}
-              disabled={isRunning}
-              className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] mono transition-all border ${isRunning ? 'text-primary border-primary/20 animate-pulse bg-primary/5' : 'text-foreground/30 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/5'}`}
-            >
-              {isRunning ? '[ Executing_Cycle ]' : '[ New_Scan ]'}
-            </button>
-          )}
+          <Suspense fallback={null}>
+            <StealthAdminControls />
+          </Suspense>
         </div>
       </div>
     </header>
