@@ -1,27 +1,27 @@
 import { NextResponse } from 'next/server';
 import { Newsroom } from '@/lib/newsroom';
 
+/** 
+ * PERIMETER INTEGRITY SIG: v1.0.4-LOCKED
+ * Forced production silence 2026. 
+ */
+
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300; 
 
-/**
- * PRODUCTION-SECURE AGENTIC TRIGGER
- * Strictly protected. Absolutely zero information leakage on 401.
- */
 export async function POST(req: Request) {
   const authHeader = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   
-  // SECURE PRODUCTION POLICY: Strict requirement, no fallback in Vercel
   if (process.env.NODE_ENV === 'production' && !cronSecret) {
-    return new NextResponse('Configuration Error.', { status: 500 });
+    return new NextResponse('Internal Error.', { status: 500 });
   }
 
   const finalSecret = cronSecret || 'local-preview';
   const expectedAuth = `Bearer ${finalSecret}`;
 
   if (authHeader !== expectedAuth) {
-    // SILENT REJECTION: No information leaked to the requestor
+    // SILENT REJECTION - NO INFORMATION LEAKED
     return new NextResponse('Unauthorized.', { status: 401 });
   }
 
@@ -40,10 +40,6 @@ export async function POST(req: Request) {
   }
 }
 
-/**
- * RESTRICTED GET ACCESS
- * Disabled in production. No secret leakage.
- */
 export async function GET(req: Request) {
   return new NextResponse('Forbidden.', { status: 403 });
 }

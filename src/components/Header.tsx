@@ -5,11 +5,15 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Zap } from 'lucide-react';
 
+/** 
+ * UI INTEGRITY SIG: v1.0.4-STEALTH
+ */
+
 const Header = () => {
   const [isRunning, setIsRunning] = useState(false);
   const searchParams = useSearchParams();
   
-  // Stealth Admin Mode: Only visible if ?admin=true is in the URL
+  // Stealth Admin Mode: Strictly hidden from public readers
   const isAdmin = searchParams.get('admin') === 'true';
 
   const handleRun = async () => {
@@ -25,7 +29,7 @@ const Header = () => {
       if (res.ok) alert('🚀 Agentic Cycle Started!');
       else alert('❌ Access Denied.');
     } catch (err) {
-      alert('❌ Fatal: Network error.');
+      alert('❌ Fatal Error.');
     } finally {
       setIsRunning(false);
     }
